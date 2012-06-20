@@ -1,3 +1,5 @@
+-- Copyright (c) 2012 Jonas Tullus
+-- Licensed under MIT license (see LICENSE.txt)
 module Sokoban where
 
 import Prelude hiding (Either(..))

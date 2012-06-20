@@ -1,5 +1,7 @@
 -- ImageVerbose from Haskell Wolfenstein
+-- Licensed under GPL v3
 -- source: http://code.google.com/p/haskellstolfenwein/source/browse/trunk/beispiele/09Images/ImageVerbose.hs?spec=svn8&r=8
+-- Modified by Jonas Tullus, 2012-06-20
 
 module Main (main) where
 
