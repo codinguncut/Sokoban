@@ -1,0 +1,20 @@
+Danc's Miraculously Flexible Game Prototyping Tiles 
+http://www.lostgarden.com/2007/05/dancs-miraculously-flexible-game.html
+License: CC-BY (no cloning of his commercial games allowed)
+License: http://www.lostgarden.com/search/label/License
+Attribution: "Art Collection Title" art by Daniel Cook (Lostgarden.com) 
+  Character Boy.png
+  Gem Blue.png
+  Grass Block.png
+  Plain Block.png
+  Selector.png
+  Stone Block.png
+  Stone Block Tall.png
+
+
+Whispers of Avalon, Archer
+http://opengameart.org/content/whispers-of-avalon-archer-sprite
+License: GPL3, CC-BY
+Author: Leonard Pabin
+  whispers_of_avalon_archer.png
+
