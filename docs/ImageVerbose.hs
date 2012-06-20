@@ -5,52 +5,70 @@
 
 module Main (main) where
 
-{-
-import Graphics.Rendering.Cairo(Surface, setSourceSurface, paint, imageSurfaceCreateFromPNG)
-import Graphics.UI.Gtk(Window,AttrOp((:=)),Requisition(..)
-                      ,WindowPosition(WinPosCenter)
-                      ,initGUI,windowNew,onExpose,onDestroy,mainQuit,set
-                      ,windowWindowPosition,onSizeRequest,widgetShowAll
-                      ,mainGUI,widgetGetDrawWindow,renderWithDrawable)
-import Graphics.UI.Gtk.Gdk.Events(Event)
--}
-import Graphics.Rendering.Cairo
+import Graphics.Rendering.Cairo as C
 import Graphics.UI.Gtk
-import Graphics.UI.Gtk.Gdk.Events
+import Control.Concurrent.MVar as MV
 
-onExposeEvent:: Window-> Surface-> Event-> IO Bool
-onExposeEvent window image _ = do
-  cr <-widgetGetDrawWindow window
+onExposeEvent:: Window -> Surface -> MV.MVar Double -> EventM EExpose Bool
+onExposeEvent window image state = liftIO $ do
+  s <- MV.readMVar state
+  cr <- widgetGetDrawWindow window
+  (w, h) <- widgetGetSize window
+
+  -- double buffering
+  -- regio <- regionRectangle $ Rectangle 0 0 w h
+  -- drawWindowBeginPaintRegion cr regio
+
   renderWithDrawable cr $ do
-    save
-    translate 100 100
-    rectangle 0 0 100 100 -- left right width height
-    clip
-    newPath
-    setSourceSurface image 0 0
-    paint
-    restore
+    C.save
+    C.translate s s
+    C.rectangle 0 0 100 100 -- left right width height
+    C.clip
+    C.newPath
+    C.setSourceSurface image 0 0
+    C.paint
+    C.restore
 
-    save
-    translate 200 200
-    rectangle 100 100 100 100 -- left right width height
-    clip
-    newPath
-    setSourceSurface image 0 0
-    paint
-    restore
+  -- double buffering
+  -- drawWindowEndPaint cr
+
   return True
 
 
 main:: IO ()
 main = do
-  image <-imageSurfaceCreateFromPNG "test.png"
+  state <- MV.newMVar 100
+
+  image <- imageSurfaceCreateFromPNG "test.png"
   initGUI
-  window <-windowNew
-  onExpose window (onExposeEvent window image)
+  window <- windowNew
+
+  --canvas <- drawingAreaNew
+  --containerAdd window canvas
+
+  window `on` sizeRequest $ return (Requisition 800 600)
+  window `on` exposeEvent $ onExposeEvent window image state
+  
+  window `on` keyPressEvent $ do
+    tryEvent $ do
+      "Return" <- eventKeyName
+      liftIO $ do
+        MV.modifyMVar_ state (return . (10+))
+        widgetQueueDraw window
+    tryEvent $ do
+      val <- liftIO $ keyvalFromName "Left"
+      val <- eventKeyVal
+      liftIO $ do
+        MV.modifyMVar_ state (return . (`subtract` 100))
+        widgetQueueDraw window
+
+  (`timeoutAdd` (1000 `div` 60)) $ liftIO $ do
+    MV.modifyMVar_ state (return . (1+))
+    widgetQueueDraw window
+    return True
+
   onDestroy window mainQuit
   set window [ windowWindowPosition := WinPosCenter ]
-  window `onSizeRequest` return (Requisition 320 250)
   widgetShowAll window
   mainGUI
 
