@@ -13,3 +13,8 @@ You can watch the live coding video and many more at [Haskell Uncut](http://www.
 
 Haskell code in the root directory is licensed as MIT License.
 Other resources and images have license information in their respective directories.
+
+
+Required libraries (Ubuntu):
+* libghc-cairo-dev
+* libghc-gtk-dev
