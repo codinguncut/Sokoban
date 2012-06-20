@@ -9,17 +9,20 @@ import Graphics.Rendering.Cairo as C
 import Graphics.UI.Gtk
 import Control.Concurrent.MVar as MV
 
-onExposeEvent:: Window -> Surface -> MV.MVar Double -> EventM EExpose Bool
+onExposeEvent :: Window -> Surface -> MV.MVar Double 
+              -> EventM EExpose Bool
 onExposeEvent window image state = liftIO $ do
   s <- MV.readMVar state
   cr <- widgetGetDrawWindow window
-  (w, h) <- widgetGetSize window
+  (width, height) <- widgetGetSize window
 
   -- double buffering
-  -- regio <- regionRectangle $ Rectangle 0 0 w h
+  -- regio <- regionRectangle $ Rectangle 0 0 widt height
   -- drawWindowBeginPaintRegion cr regio
 
   renderWithDrawable cr $ do
+    -- C.scale (realToFrac width' / realToFrac width)
+    --         (realToFrac height' / realToFrac height)
     C.save
     C.translate s s
     C.rectangle 0 0 100 100 -- left right width height
