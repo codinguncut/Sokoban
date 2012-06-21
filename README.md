@@ -9,6 +9,8 @@ You can watch the live coding video and many more at [Haskell Uncut](http://www.
 
 <center><a href="https://github.com/downloads/jethr0/Sokoban/2012-06-21_sokoban_screenshot.png"><img src="https://github.com/downloads/jethr0/Sokoban/2012-06-21_sokoban_screenshot_small.png"></a></center>
 
+You can find Windows executables in the [Download Section](https://github.com/jethr0/Sokoban/downloads). Latest (could be historic) binary: [2012-06-21_Sokoban_win32.zip](https://github.com/downloads/jethr0/Sokoban/2012-06-21_Sokoban_win32.zip)
+
 #### Status
 In the first session I implemented a simple console based visualization without any bells and whistles.
 
