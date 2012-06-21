@@ -1,4 +1,4 @@
-module SokobanGUI where
+module Main where
 
 import Sokoban
 import Prelude hiding (Either(..))
