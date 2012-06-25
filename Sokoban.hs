@@ -3,15 +3,18 @@
 -- Available on GitHub at http://github.com/jethr0/Sokoban
 module Sokoban  (modifyWorld
                 ,isFinished
-                ,loadLevel
-                ,World(..)
+                ,loadLevels
+                ,World(wMax, wSteps)
                 ,Input(..)
-                ,level
+                ,isWall
+                ,isCrate
+                ,isStorage
+                ,isWorker
                 ) where
 
 import Prelude hiding (Either(..))
-import Data.List (sort, delete)
-import Control.Monad (forM_)
+import Data.List (sort, delete, unfoldr)
+import Control.Monad (forM_, liftM)
 
 data Input  = Up 
             | Down 
@@ -54,8 +57,20 @@ isCrate world coord = elem coord (wCrates world)
 isStorage :: World -> Coord -> Bool
 isStorage world coord = elem coord (wStorages world)
 
+isWorker :: World -> Coord -> Bool
+isWorker w c  = wWorker w == c
+
 
 ---
+
+loadLevels :: String -> IO [World]
+loadLevels filename = do
+  lns <- liftM lines . readFile $ filename
+  return $ unfoldr consume lns
+  where isEmptyLine = all (' '==)
+        consume [] = Nothing
+        consume ls = let (a,b) = break isEmptyLine ls
+                     in return (loadLevel $ unlines a, drop 1 b)
 
 
 loadLevel :: String -> World
@@ -72,24 +87,12 @@ loadLevel str = foldl consume (emptyWorld{wMax = maxi}) elems
             'o' -> wld{wCrates    = c:wCrates wld}
             '#' -> wld{wWalls     = c:wWalls wld}
             '.' -> wld{wStorages  = c:wStorages wld} 
+            '*' -> wld{wCrates    = c:wCrates wld
+                      ,wStorages  = c:wStorages wld}
+            '+' -> wld{wStorages  = c:wStorages wld
+                      ,wWorker    = c}
             ' ' -> wld
             otherwise -> error (show elt ++ " not recognized")
-
-
-instance Show World where
-  show w = unlines chars
-    where (maxX, maxY)  = wMax w
-          chars         = [[func (x,y)  | x <- [0..maxX]] 
-                                        | y <- [0..maxY]]
-          isWorker w c  = wWorker w == c
-          func c 
-            | isCrate   w c && isStorage w c  = '*'
-            | isWorker  w c && isStorage w c  = '+'
-            | isWall    w c                   = '#'
-            | isWorker  w c                   = '@'
-            | isCrate   w c                   = 'o'
-            | isStorage w c                   = '.'
-            | otherwise                       = ' '
 
 
 modifyWorld :: World -> Input -> Maybe World
@@ -111,21 +114,3 @@ modifyWorld world input
 isFinished :: World -> Bool
 isFinished world = 
   sort (wCrates world) == sort (wStorages world)
-
-
----
-
-
-level = unlines
-  ["    #####"
-  ,"    #   #"
-  ,"    #o  #"
-  ,"  ###  o##"
-  ,"  #  o o #"
-  ,"### # ## #   ######"
-  ,"#   # ## #####  ..#"
-  ,"# o  o          ..#"
-  ,"##### ### #@##  ..#"
-  ,"    #     #########"
-  ,"    #######"
-  ]
