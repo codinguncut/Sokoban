@@ -11,6 +11,13 @@ You can watch the live coding video and many more at [Haskell Uncut](http://www.
 
 You can find Windows executables in the [Download Section](https://github.com/jethr0/Sokoban/downloads). Latest (could be historic) binary: [2012-06-21_Sokoban_win32.zip](https://github.com/downloads/jethr0/Sokoban/2012-06-21_Sokoban_win32.zip)
 
+### How to Play
+
+Cursor keys move the worker
+'r' reloads the level
+'n' skips to the next level
+'q' quits the game
+
 #### Status
 In the first session I implemented a simple console based visualization without any bells and whistles.
 
