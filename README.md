@@ -14,8 +14,11 @@ You can find Windows executables in the [Download Section](https://github.com/je
 ### How to Play
 
 Cursor keys move the worker
+
 'r' reloads the level
+
 'n' skips to the next level
+
 'q' quits the game
 
 #### Status
