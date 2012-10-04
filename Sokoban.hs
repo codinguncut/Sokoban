@@ -1,4 +1,4 @@
--- Copyright (c) 2012 Jonas Tullus
+-- Copyright (c) 2012 Johannes Ahlmann
 -- Licensed under MIT license (see LICENSE.txt)
 -- Available on GitHub at http://github.com/jethr0/Sokoban
 module Sokoban  (modifyWorld
