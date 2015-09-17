@@ -7,9 +7,9 @@ The challenge was [Ruby Quiz #5](http://www.rubyquiz.com/quiz5.html) - Sokoban.
 
 You can watch the live coding video and many more at [Haskell Uncut](http://www.youtube.com/user/entirelysubjective)
 
-<center><a href="https://github.com/downloads/jethr0/Sokoban/2012-06-21_sokoban_screenshot.png"><img src="https://github.com/downloads/jethr0/Sokoban/2012-06-21_sokoban_screenshot_small.png"></a></center>
+<center><a href="https://github.com/downloads/codinguncut/Sokoban/2012-06-21_sokoban_screenshot.png"><img src="https://github.com/downloads/codinguncut/Sokoban/2012-06-21_sokoban_screenshot_small.png"></a></center>
 
-You can find Windows executables in the [Download Section](https://github.com/jethr0/Sokoban/downloads). [Latest binary](https://github.com/downloads/jethr0/Sokoban/2012-06-25_Sokoban_win32.zip) (could be historic)
+You can find Windows executables in the [Download Section](https://github.com/codinguncut/Sokoban/downloads). [Latest binary](https://github.com/downloads/codinguncut/Sokoban/2012-06-25_Sokoban_win32.zip) (could be historic)
 
 ### How to Play
 
